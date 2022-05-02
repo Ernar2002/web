@@ -38,8 +38,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByName(String keyword) {
-        return productRepository.findProductByProductNameStartingWith(keyword);
+    public List<Product> findByName(String title) {
+        return productRepository.getProductsByTitle(title);
     }
 
     @Override

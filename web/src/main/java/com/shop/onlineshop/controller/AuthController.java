@@ -37,8 +37,9 @@ public class AuthController {
 	}
 
 	@GetMapping("/signup")
-	public ModelAndView signup(Model model) {
-		model.addAttribute("user", new User());
+	public ModelAndView signup() {
+		ModelAndView mv = new ModelAndView("signup");
+		mv.addObject("user",new User());
 		return new ModelAndView("signup");
 	}
 

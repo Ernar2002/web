@@ -24,8 +24,9 @@
 				<ul class="nav my-auto mr-4">
 					<li class="nav-item"><a href="#" class="navbar-brand" th:href="@{/profile/cart-product}"><i class="fab fa-opencart"></i></a></li>
 				</ul>
-					<a sec:authorize="isAuthenticated()" class="navbar-brand" href="#" th:href="@{/logout}"><i class="bi bi-person-circle"></i> Log out</a>
-					<a sec:authorize="isAnonymous()" class="navbar-brand" href="#" th:href="@{~/login}"><i class="bi bi-person-circle"></i> Sign in</a>
+				<a sec:authorize="isAuthenticated()" class="navbar-brand" href="#" th:href="@{/profile/get-information}">Profile</a>
+				<a sec:authorize="isAuthenticated()" class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
+					<a sec:authorize="isAnonymous()" class="navbar-brand" href="#" th:href="@{~/login}">Sign in</a>
 					&nbsp&nbsp&nbsp
 			</div>
 			</div>
