@@ -4,6 +4,7 @@ import com.shop.onlineshop.model.entities.User;
 import com.shop.onlineshop.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +21,12 @@ public class AuthController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
+	private final PasswordEncoder passwordEncoder;
 	private final UserService userService;
 
-	public AuthController(UserService userService) {
+	public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
 		this.userService = userService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 //	@GetMapping({"index", "/get-user-list"})
@@ -40,7 +43,7 @@ public class AuthController {
 	public ModelAndView signup() {
 		ModelAndView mv = new ModelAndView("signup");
 		mv.addObject("user",new User());
-		return new ModelAndView("signup");
+		return mv;
 	}
 
 	@GetMapping("error")
@@ -50,7 +53,7 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ModelAndView registerNewPage(@ModelAttribute("user") @Valid User user,
-						 BindingResult result, Model model) {
+						 BindingResult result) {
 		logger.info("New user {}", user);
 
 		if (result.hasErrors()) {
@@ -135,6 +138,9 @@ public class AuthController {
 			result.rejectValue("email", "", "This email already exists");
 			return new ModelAndView("signup");
 		}
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setRole("USER");
+		user.setActive(1);
 		userService.save(user);
 		return new ModelAndView("login");
 	}

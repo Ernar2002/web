@@ -13,10 +13,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByCategory_CategoryId(long CategoryId);
 
-    List<Product> findProductByProductNameStartingWith(String productName);
-
     @Query(value = "SELECT * FROM products WHERE product_name LIKE %:keyword%", nativeQuery = true)
     List<Product> getProductsByTitle(@Param("keyword") String title);
+
 
 
 }

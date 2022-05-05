@@ -1,4 +1,4 @@
-package com.shop.onlineshop.urils;
+package com.shop.onlineshop.utils;
 
 import com.shop.onlineshop.model.entities.Product;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 public class ProductDto {
-    private long productId;
+    private Long productId;
     private String productName;
     private int productPrice;
     private String image;

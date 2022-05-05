@@ -42,7 +42,7 @@
 						<h5 th:text="${product.productName}" class="card-title"></h5>
 						<p th:text="${product.productPrice} + ' ₸'" class="card-text"></p>
 						<div class="btn" >
-							<a class="link_cart" href="#" th:href="@{'~/profile/addToCart/' + ${product.productId}}">
+							<a class="link_cart" href="#" th:href="@{'~/cart/add-to-cart/' + ${product.productId}}">
 								<i class="fa fa-shopping-cart"></i>
 								<span>Add to cart</span>
 							</a>

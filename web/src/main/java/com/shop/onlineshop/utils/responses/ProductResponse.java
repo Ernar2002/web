@@ -1,7 +1,6 @@
-package com.shop.onlineshop.urils.responses;
+package com.shop.onlineshop.utils.responses;
 
 import com.shop.onlineshop.model.entities.Product;
-import com.shop.onlineshop.model.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

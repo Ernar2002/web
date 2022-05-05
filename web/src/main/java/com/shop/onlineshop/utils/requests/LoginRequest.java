@@ -1,4 +1,4 @@
-package com.shop.onlineshop.urils.requests;
+package com.shop.onlineshop.utils.requests;
 
 import lombok.Data;
 

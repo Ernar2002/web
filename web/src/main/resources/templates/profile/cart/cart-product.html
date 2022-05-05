@@ -12,6 +12,7 @@
 					<span class="my-auto h6">Product Image</span> 
 					<span class="my-auto h6">Product</span> 
 					<span class="my-auto h6">Price</span>
+					<span class="my-auto h6">Action</span>
 				</li>
 			</ul>
 			<ul class="list-group col-9" th:each="product : ${user.productList}">
@@ -19,7 +20,7 @@
 					<img th:src="${product.image}" height="100"> 
 					<span class="my-auto" th:text="${product.productName}"></span> 
 					<span class="my-auto" th:text="${product.productPrice} + ' ₸'"></span>
-					<a type="button" th:href="@{'~/profile/deleteFromCart/' + ${product.productId}}" class="btn btn-primary">Delete</a>
+					<a style="width: 100px" type="button" th:href="@{'/cart/delete-from-cart/' + ${product.productId}}" class="btn btn-primary">Delete</a>
 				</li>
 			</ul>
 			<ul class="list-group col-9">
@@ -27,7 +28,7 @@
 					<span class="h6" th:text="'Total : '+${total}"></span>
 				</li>
 				<li class="list-group-item d-flex justify-content-end">
-					<a th:href="@{'~/profile/purchase/'}" type="button" class="btn btn-primary">PURCHASE</a>
+					<a th:href="@{'/cart/purchase/'}" type="button" class="btn btn-primary">PURCHASE</a>
 				</li>
 			</ul>
 		</div>

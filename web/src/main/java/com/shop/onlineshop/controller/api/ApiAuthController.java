@@ -2,9 +2,9 @@ package com.shop.onlineshop.controller.api;
 
 import com.shop.onlineshop.model.entities.User;
 import com.shop.onlineshop.service.UserService;
-import com.shop.onlineshop.urils.requests.LoginRequest;
-import com.shop.onlineshop.urils.requests.RegisterRequest;
-import com.shop.onlineshop.urils.responses.LoginResponse;
+import com.shop.onlineshop.utils.requests.RegisterRequest;
+import com.shop.onlineshop.utils.responses.LoginResponse;
+import com.shop.onlineshop.utils.responses.RegisterResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ApiAuthController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestParam String email, @RequestParam String password) {
+    public LoginResponse login(@RequestParam String email, @RequestParam String password) {
         User findUser = userService.findByEmail(email);
 
         LoginResponse loginResponse = new LoginResponse();
@@ -36,34 +36,41 @@ public class ApiAuthController {
             if(passwordEncoder.matches(password, findUser.getPassword())){
                 loginResponse.setUser(findUser);
                 loginResponse.setError(false);
-                return ResponseEntity.ok().body(loginResponse);
+                return loginResponse;
             } else {
                 loginResponse.setMessage("Invalid password");
                 loginResponse.setError(true);
-                return ResponseEntity.badRequest().body(loginResponse);
+                return loginResponse;
             }
 
         } else {
             loginResponse.setMessage("User not found");
             loginResponse.setError(true);
-            return ResponseEntity.badRequest().body(loginResponse);
+            return loginResponse;
         }
     }
 
     @GetMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
-        User newUser = userService.findByEmail(registerRequest.getEmail());
+    public RegisterResponse signup(@RequestParam String email, @RequestParam String password, @RequestParam String firstName, @RequestParam String lastName) {
+        User newUser = userService.findByEmail(email);
+        RegisterResponse response = new RegisterResponse();
         if(newUser==null){
             User user = new User();
-            user.setEmail(registerRequest.getEmail());
-            user.setPassword(registerRequest.getPassword());
-            user.setFirstName(registerRequest.getFirstName());
-            user.setLastName(registerRequest.getLastName());
+            user.setEmail(email);
+            user.setPassword(passwordEncoder.encode(password));
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setRole("USER");
+            user.setActive(1);
             userService.save(user);
-            return ResponseEntity.ok("User created");
+            response.setError(false);
+            response.setMessage("User created");
         } else {
-            return ResponseEntity.badRequest().body("User exists");
+            response.setError(true);
+            response.setMessage("User exists");
         }
+
+        return response;
     }
 
 

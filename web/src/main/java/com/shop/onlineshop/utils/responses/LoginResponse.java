@@ -1,4 +1,4 @@
-package com.shop.onlineshop.urils.responses;
+package com.shop.onlineshop.utils.responses;
 
 import com.shop.onlineshop.model.entities.User;
 import lombok.AllArgsConstructor;

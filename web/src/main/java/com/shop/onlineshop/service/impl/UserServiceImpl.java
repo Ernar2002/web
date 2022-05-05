@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.shop.onlineshop.model.entities.Product;
 import com.shop.onlineshop.repositories.UserRepository;
 import com.shop.onlineshop.model.entities.User;
 import com.shop.onlineshop.service.UserService;
@@ -29,9 +30,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void save(User user) {
-		user.setActive(1);
-		user.setRole("USER");
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
 	}
 
@@ -40,14 +38,14 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getById(id);
 	}
 
-//	@Override
-//	public void update(User user) {
-//		List<Product> productlist1 = user.getProductList();
-//		List<Product> productlist = (userRepository.findByEmail(user.getEmail())).getProductList();
-//		productlist1.addAll(productlist);
-//		user.setProductList(productlist1);
-//		userRepository.save(user);
-//	}
+	@Override
+	public void update(User user) {
+		List<Product> productlist1 = user.getProductList();
+		List<Product> productlist = (userRepository.findByEmail(user.getEmail())).getProductList();
+		productlist1.addAll(productlist);
+		user.setProductList(productlist1);
+		userRepository.save(user);
+	}
 
 	@Override
 	public List<User> findAllUser() {
