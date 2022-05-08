@@ -8,7 +8,7 @@
 			style="width: 600px; margin-left: auto; margin-right: auto; margin-top: 24px; padding: 24px;">
 			<div class="card">
 				<div class="card-block" style="padding: 24px;">
-					<form th:action="@{/signup}" method="post" th:object="${user}">
+					<form th:action="@{/auth/signup}" method="post" th:object="${user}">
 						<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
 							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
 						</div>

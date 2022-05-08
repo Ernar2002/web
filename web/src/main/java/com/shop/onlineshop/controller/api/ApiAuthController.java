@@ -47,7 +47,7 @@ public class ApiAuthController {
             loginResponse.setMessage("User not found");
             loginResponse.setError(true);
             return loginResponse;
-        }
+        } 
     }
 
     @GetMapping("/signup")

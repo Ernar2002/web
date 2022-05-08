@@ -12,7 +12,7 @@ public class ApiProfileController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/update-profile")
+    @GetMapping("/update-profile")
     public User updateProfile(@RequestParam String email, @RequestParam String fName,
                               @RequestParam String lName, @RequestParam String city,
                               @RequestParam String address){

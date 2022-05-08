@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.regex.Pattern;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/auth")
 public class AuthController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -34,7 +34,7 @@ public class AuthController {
 //		return userService.findAllUser();
 //	}
 
-	@GetMapping("login")
+	@GetMapping("/login")
 	public ModelAndView login() {
 		return new ModelAndView("login");
 	}
@@ -48,7 +48,7 @@ public class AuthController {
 
 	@GetMapping("error")
 	public String error() {
-		return "error";
+		return "error/403";
 	}
 
 	@PostMapping("/signup")

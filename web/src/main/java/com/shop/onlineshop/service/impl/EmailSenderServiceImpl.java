@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,16 +20,19 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     private JavaMailSender mailSender;
 
     @Override
-    public void sendEmail(String toEmail, String subject, String body, List<Product> productList) {
+    public void sendEmail(String toEmail, String subject, String body, List<Product> productList, int totalSum) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        String text = body;
+        Date date = new Date();
+        StringBuilder text = new StringBuilder(body + "\n" + date + "\n\nPurchased products: \n");
         for(int i=0; i<productList.size(); i++){
-            text = body + "\n" + productList.get(i).getProductName() + "\n";
+            text.append(productList.get(i).getProductName()).append("\n");
         }
+
+        text.append("\n\nTotal sum: " + totalSum + " ₸");
         message.setFrom("infinity.aitu@gmail.com");
         message.setTo(toEmail);
-        message.setText(text);
+        message.setText(text.toString());
         message.setSubject(subject);
 
         mailSender.send(message);

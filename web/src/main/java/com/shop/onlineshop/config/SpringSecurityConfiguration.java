@@ -16,6 +16,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+	private static final String API_ENDPOINT = "/api/**";
+	private static final String AUTH_ENDPOINT = "/auth/**";
+	private static final String ORDER_ENDPOINT = "/cart/**";
+	private static final String PROFILE_ENDPOINT = "/profile/**";
+ 	private static final String ADMIN_ENDPOINT = "/admin/**/**";
+	private static final String OAUTH_ENDPOINT = "/oauth/**";
+
 	private final CustomOidcUserService customOidcUserService;
 	
 	private UserPrincipalDetailService userPrincipalDetailService;
@@ -34,45 +41,27 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/index","/signup","/login","/resources/**").permitAll()
-				.antMatchers("/profile/**").authenticated()
-//				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/oauth/**").permitAll()
+				.antMatchers(AUTH_ENDPOINT).permitAll()
+				.antMatchers(ORDER_ENDPOINT).authenticated()
+				.antMatchers(PROFILE_ENDPOINT).authenticated()
+				.antMatchers(OAUTH_ENDPOINT).permitAll()
+				.antMatchers(API_ENDPOINT).permitAll()
+				.anyRequest().permitAll()
 			.and()
 				.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.invalidateHttpSession(true)
 				.clearAuthentication(true)
-				.logoutSuccessUrl("/login")
+				.logoutSuccessUrl("/auth/login")
 			.and()
-			.formLogin().loginPage("/login")
+			.formLogin().loginPage("/auth/login")
 				.usernameParameter("email")
 				.passwordParameter("password")
 			.and()
 				.oauth2Login()
-				.loginPage("/login")
+				.loginPage("/auth/login")
 				.userInfoEndpoint()
 				.oidcUserService(customOidcUserService);
-//			.and()
-//			.logout()
-//				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//				.invalidateHttpSession(true)
-//				.clearAuthentication(true)
-//				.logoutSuccessUrl("/login");
-
-
-//				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/logout");
-//			.formLogin()
-//			.loginPage("/login")
-//			.usernameParameter("email")
-//			.passwordParameter("password")
-//			.and()
-//			.logout()
-//			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//			.logoutSuccessUrl("/login")
-//			.and()
-//			.rememberMe().tokenValiditySeconds(30000).key("WhatEver!")
-//			.rememberMeParameter("checkRememberMe");
 	}
 	
 	@Bean

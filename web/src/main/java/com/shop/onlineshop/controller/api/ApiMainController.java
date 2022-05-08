@@ -54,7 +54,7 @@ public class ApiMainController {
         return productDtoList;
     }
 
-    @GetMapping("get-products/{categoryId}")
+    @GetMapping("/get-products/{categoryId}")
     public List<ProductDto> getProductFromCategory(@PathVariable("categoryId") Long categoryId) {
         List<Product> productList = productService.findByCategory(categoryId);
         List<ProductDto> productDtoList = new ArrayList<>();
@@ -65,6 +65,5 @@ public class ApiMainController {
 
         return productDtoList;
     }
-
 
 }

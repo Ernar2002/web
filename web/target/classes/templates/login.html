@@ -7,7 +7,7 @@
 		<div style="width: 600px; margin-left: auto; margin-right: auto; margin-top: 24px; padding: 24px;">
 			<div class="card">
 				<div class="card-block" style="padding: 24px;">
-					<form th:action="@{/login}" method="post">
+					<form th:action="@{/auth/login}" method="post">
 						<a th:href="@{/oauth2/authorization/google}">Login with Google</a>
 						<fieldset>
 							
@@ -28,20 +28,13 @@
 									class="form-control" id="password" name="password"
 									placeholder="Password">
 							</div>
-
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input"
-									id="checkRememberMe" name="checkRememberMe"> <label
-									class="form-check-label" for="checkRememberMe">Remember
-									me?</label>
-							</div>
 							
 							<div class="form-actions" style="margin-top: 12px;">
 								<button type="submit" class="btn btn-success">Log in</button>
 							</div>
 						</fieldset>
 					</form>
-					<a class="register" href="#" th:href="@{~/signup}">You don't have account yet?</a>
+					<a class="register" href="#" th:href="@{/auth/signup}">You don't have account yet?</a>
 				</div>
 			</div>
 		</div>

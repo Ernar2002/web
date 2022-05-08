@@ -64,7 +64,7 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("all-product")
+    @GetMapping("/all-product")
     public ModelAndView allProduct() {
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("productList", productService.listProduct());
@@ -72,7 +72,7 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("get-products/{categoryId}")
+    @GetMapping("/get-products/{categoryId}")
     public ModelAndView getProductFromCategory(@PathVariable("categoryId") String categoryId) {
         ModelAndView mv = new ModelAndView("index");
         long categoryLongId = Long.parseLong(categoryId);

@@ -92,7 +92,7 @@ public class OrderController {
     public String purchase(Principal principal, @AuthenticationPrincipal OAuth2User oauth2User) {
         User user = getPrincipalUser(principal, oauth2User);
 
-        senderService.sendEmail(user.getEmail(),"Заказ","Заказ успешно выполнен", user.getProductList());
+        senderService.sendEmail(user.getEmail(),"Order","Purchase completed successfully\n", user.getProductList(), findSum(user));
         userService.deleteAllProductsFromUserProductList(user.getUserId());
 
         return "redirect:/cart/list";

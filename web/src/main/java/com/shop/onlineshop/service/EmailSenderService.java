@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface EmailSenderService {
-    void sendEmail(String toEmail, String subject, String body, List<Product> productList ) ;
+    void sendEmail(String toEmail, String subject, String body, List<Product> productList, int totalSum ) ;
 }
