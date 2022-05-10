@@ -32,7 +32,6 @@ public class ApiAuthController {
 
         LoginResponse loginResponse = new LoginResponse();
         if(findUser!=null){
-
             if(passwordEncoder.matches(password, findUser.getPassword())){
                 loginResponse.setUser(findUser);
                 loginResponse.setError(false);
