@@ -8,10 +8,7 @@ import com.shop.onlineshop.service.UserService;
 import com.shop.onlineshop.utils.CategoryDto;
 import com.shop.onlineshop.utils.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -51,6 +48,18 @@ public class ApiMainController {
             productDtoList.add(ProductDto.fromProduct(product));
         }
 
+        return productDtoList;
+    }
+
+    @GetMapping("/search-products")
+    public List<ProductDto> searchProducts(@RequestParam String keyword) {
+        List<Product> products = productService.findByName(keyword);
+
+        List<ProductDto> productDtoList = new ArrayList<>();
+
+        for (Product product : products) {
+            productDtoList.add(ProductDto.fromProduct(product));
+        }
         return productDtoList;
     }
 
